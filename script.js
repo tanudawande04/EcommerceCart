@@ -8,6 +8,9 @@ Document.addEventListener(Domcontentloaded => () {
 
     constcart = [];
     const cartitems = document.getElementsByClassName("cart-items");
-
+    const itemname = document.getElementsByClassName("item-name");
+    const itemqty = document.getElementsByClassName("item-qty");
+    const itemprice = document.getElementsByClassName("item-price");
+    const removeBtn = document.getElementsByClassName("remove-btn");
 
 })
