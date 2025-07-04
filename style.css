@@ -148,3 +148,7 @@ h2 {
 #chekout-btn:hover {
   background: #389e0d;
 }
+
+.hidden {
+  display: none;
+}
