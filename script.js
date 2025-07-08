@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="product-price">$${product.price.toFixed(2)}</span>
             </div>
             <button class="add-btn" data-id="${product.id}">Add to cart</button>
+           
         `;
         productList.appendChild(productDiv);
     });
@@ -34,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const product = products.find(p => p.id === productId);
             addToCart(product);
 
+
         }
 
     })
@@ -43,33 +45,45 @@ document.addEventListener("DOMContentLoaded", () => {
         renderCart();
     }
 
+
+
+
     function renderCart() {
         cartItems.innerText = "";
         let totalPrice = 0;
 
         if (cart.length > 0) {
             emptyCartMessage.classList.add('hidden');
-            cartTotalMessage.classList.remove("hidden")
+            cartTotalMessage.classList.remove("hidden");
 
             cart.forEach((item, index) => {
                 totalPrice += item.price;
                 const cartItem = document.createElement('div');
-
+                cartItem.classList.add('cart-item');
                 cartItem.innerHTML = `
-                ${item.name} - $${item.price.toFixed(2)}
-
+                    <span class="item-name">${item.name}</span>
+                    <span class="item-price">$${item.price.toFixed(2)}</span>
+                    <button class="remove-btn" data-index="${index}">Remove</button>
                 `;
-                cartItems.appendChild(cartItem)
-                totalPriceDisplay.textContent = `${totalPrice.toFixed(2)}`;
-
-
+                cartItems.appendChild(cartItem);
             });
 
+            totalPriceDisplay.textContent = `${totalPrice.toFixed(2)}`;
+
+            // Add event listeners for remove buttons
+            const removeBtns = cartItems.querySelectorAll('.remove-btn');
+            removeBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const idx = parseInt(this.getAttribute('data-index'));
+                    cart.splice(idx, 1);
+                    renderCart();
+                });
+            });
 
         } else {
             emptyCartMessage.classList.remove("hidden");
+            cartTotalMessage.classList.add("hidden");
             totalPriceDisplay.textContent = `$0.00`;
-
         }
     }
 
